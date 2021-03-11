@@ -2,7 +2,9 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "go_api/router/api/v1"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"go_api/controller/v1"
 )
 
 func InitRouter() *gin.Engine {
@@ -15,11 +17,11 @@ func InitRouter() *gin.Engine {
 			"message": "test",
 		})
 	})
-
-	apiv1 := r.Group("/api/v1")
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	apiV1 := r.Group("/api/v1")
 	{
 		//获取标签列表
-		apiv1.GET("/tags", v1.GetTags)
+		apiV1.GET("/tags", v1.GetTags)
 	}
 	return r
 
