@@ -6,3 +6,10 @@ port =  "8080"
 addr = "127.0.0.1"
 port =  "6379"
 
+[database]
+type = "mysql"
+host = "127.0.0.1:3306"
+user = "root"
+password = "123456"
+dbName = "blog"
+tablePrefix = "blog_"

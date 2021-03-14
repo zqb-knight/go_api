@@ -2,36 +2,51 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"go_api/model/redis_model"
-	"log"
+	//"go_api/model/redis_model"
+	"go_api/model/mysql_model"
 )
 
-//@Summary 测试接口
-//@Produce json
-//@Description 从redis获取值并返回
-//@Success 200 {string} json "{"code":200, "msg":"667"}"
-//@Router /api/v1/tags [get]
-
+// @Summary 获取多个标签
+// @Produce  json
+// @Param name query string false "Name"
+// @Param state query int false "State"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/tags [get]
 func GetTags(c *gin.Context) {
+	rep := mysql_model.GetTags()
+	//rd := redis_model.InitRedis()
+	//if rd == nil {
+	//	log.Println("redis初始化失败")
+	//	return
+	//}
+	//
+	//response, err := rd.Get("xj").Result()
+	//if err != nil {
+	//	log.Println("redis获取值失败")
+	//	c.JSON(200, gin.H{
+	//		"msg": "请重试",
+	//	})
+	//	return
+	//
+	//}
+	//log.Println(response)
 
-	rd := redis_model.InitRedis()
-	if rd == nil {
-		log.Println("redis初始化失败")
-		return
-	}
-
-	response, err := rd.Get("xj").Result()
-	if err != nil {
-		log.Println("redis获取值失败")
-		c.JSON(200, gin.H{
-			"msg": "请重试",
-		})
-		return
-
-	}
-	log.Println(response)
 	c.JSON(200, gin.H{
-		"msg": response,
+		"msg": rep.Name,
 	})
+
+}
+
+//添加文章标签
+func AddTag(c *gin.Context) {
+
+}
+
+func EditTag(c *gin.Context) {
+
+}
+
+func DeleteTag(c *gin.Context) {
 
 }
