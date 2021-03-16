@@ -1,7 +1,5 @@
 package mysql_model
 
-import "log"
-
 type Tag struct {
 	Model
 
@@ -11,16 +9,22 @@ type Tag struct {
 	State      int    `json:"state"`
 }
 
-func GetTags() (tags Tag) {
-	var tag Tag
-	db.First(&tag, 115)
-	log.Println(tag)
-
-	return tag
+func GetTags(maps interface{}) (tags []Tag) {
+	db.Where(maps).Find(&tags)
+	return
 }
 
 func GetTagTotal(maps interface{}) (count int) {
 	db.Model(&Tag{}).Where(maps).Count(&count)
 
 	return
+}
+
+func AddTag(name string, createdBy string) error {
+	tag := Tag{
+		Name:      name,
+		CreatedBy: createdBy,
+	}
+	err := db.Create(&tag).Error
+	return err
 }
