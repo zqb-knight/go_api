@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_api/model/mysql_model"
+	"go_api/model"
 	"go_api/router"
 )
 
@@ -16,8 +16,8 @@ import (
 // @host 127.0.0.1
 // @BasePath /v1
 func main() {
-	mysql_model.Init()
-	defer mysql_model.CloseDB()
+	model.Init()
+	defer model.CloseDB()
 	r := router.InitRouter()
 
 	_ = r.Run()

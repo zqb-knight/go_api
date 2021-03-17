@@ -16,5 +16,6 @@ func (g *Gin) buildResponse(httpCode int, errno int, data interface{}) {
 		Errno: errno,
 		Data:  data,
 	})
+
 	return
 }

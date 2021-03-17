@@ -2,7 +2,7 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"go_api/model/mysql_model"
+	"go_api/model"
 	"log"
 )
 
@@ -14,12 +14,24 @@ import (
 // @Failure 500 {object} app.Response
 // @Router /api/v1/tags [get]
 func GetTags(c *gin.Context) {
+	var res string
 	name := c.Query("name")
 	var maps = make(map[string]interface{})
 	maps["name"] = name
-	rep := mysql_model.GetTags(maps)
+	rep, err := model.GetTags(maps)
+	if err != nil {
+		log.Println("数据库查询失败")
+		c.JSON(300, gin.H{
+			"errorNo":  101,
+			"errorMsg": "数据库错误",
+		})
+	}
+	if len(rep) == 0 {
+		res = "未查询到创建者"
+	}
+	res = rep[0].CreatedBy
 	c.JSON(200, gin.H{
-		"msg": rep[0].CreatedBy,
+		"msg": res,
 	})
 
 }
@@ -28,7 +40,7 @@ func GetTags(c *gin.Context) {
 func AddTag(c *gin.Context) {
 	name := c.Query("name")
 	createdBy := c.Query("created_by")
-	err := mysql_model.AddTag(name, createdBy)
+	err := model.AddTag(name, createdBy)
 	if err != nil {
 		log.Println("插入数据失败")
 	}

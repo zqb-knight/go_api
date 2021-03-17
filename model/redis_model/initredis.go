@@ -8,15 +8,18 @@ import (
 )
 
 var (
-	addr string
-	port string
+	redisClient *redis.Client
 )
 
 /*
 	@ 初始化redis
 	@return 返回redis.client
 */
-func InitRedis() *redis.Client {
+func InitRedis() error {
+	var (
+		addr string
+		port string
+	)
 	common.InitConfig("")
 	//配置文件加载失败，则使用默认配置
 	if common.Viper == nil {
@@ -27,14 +30,14 @@ func InitRedis() *redis.Client {
 		addr = common.Viper.GetString("redis.addr")
 		port = common.Viper.GetString("redis.port")
 	}
-	cli := redis.NewClient(&redis.Options{
+	redisClient = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", addr, port),
 		Password: "",
 		DB:       0,
 	})
-	_, err := cli.Ping().Result()
+	_, err := redisClient.Ping().Result()
 	if err != nil {
-		return nil
+		return err
 	}
-	return cli
+	return nil
 }

@@ -1,4 +1,6 @@
-package mysql_model
+package model
+
+import "log"
 
 type Tag struct {
 	Model
@@ -9,8 +11,12 @@ type Tag struct {
 	State      int    `json:"state"`
 }
 
-func GetTags(maps interface{}) (tags []Tag) {
-	db.Where(maps).Find(&tags)
+func GetTags(maps interface{}) (tags []Tag, err error) {
+	err = db.Where(maps).Find(&tags).Error
+	if err != nil {
+		log.Println("数据库查询出错")
+	}
+	log.Println(tags)
 	return
 }
 
