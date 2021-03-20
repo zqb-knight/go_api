@@ -13,3 +13,6 @@ user = "root"
 password = "123456"
 dbName = "blog"
 tablePrefix = "blog_"
+
+[jwt]
+secret = "0115"

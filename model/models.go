@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"go_api/common"
+	"go_api/common/handlers/config"
 	"log"
 )
 
@@ -21,13 +21,12 @@ var (
 
 func Init() {
 	var err error
-	common.InitConfig("")
-	dbType := common.Viper.GetString("database.type")
-	host := common.Viper.GetString("database.host")
-	user := common.Viper.GetString("database.user")
-	password := common.Viper.GetString("database.password")
-	dbName := common.Viper.GetString("database.dbName")
-	tablePrefix := common.Viper.GetString("database.tablePrefix")
+	dbType := config.Viper.GetString("database.type")
+	host := config.Viper.GetString("database.host")
+	user := config.Viper.GetString("database.user")
+	password := config.Viper.GetString("database.password")
+	dbName := config.Viper.GetString("database.dbName")
+	tablePrefix := config.Viper.GetString("database.tablePrefix")
 	test := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,

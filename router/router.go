@@ -19,6 +19,9 @@ func InitRouter() *gin.Engine {
 		})
 	})
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	r.GET("/auth", v1.GetAuth)
+
 	apiV1 := r.Group("/api/v1")
 	{
 		//获取标签列表

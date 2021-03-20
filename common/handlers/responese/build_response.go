@@ -1,6 +1,9 @@
-package common
+package responese
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"go_api/common/e"
+)
 
 type Gin struct {
 	C *gin.Context
@@ -8,12 +11,14 @@ type Gin struct {
 
 type Response struct {
 	Errno int         `json:"errno"`
+	Msg   string      `json:"msg"`
 	Data  interface{} `json:"data"`
 }
 
-func (g *Gin) buildResponse(httpCode int, errno int, data interface{}) {
+func (g *Gin) BuildResponse(httpCode int, errno int, data interface{}) {
 	g.C.JSON(httpCode, Response{
 		Errno: errno,
+		Msg:   e.GetMsg(errno),
 		Data:  data,
 	})
 
