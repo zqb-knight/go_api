@@ -2,8 +2,11 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"go_api/common/e"
+	"go_api/common/handlers/responese"
 	"go_api/model"
 	"log"
+	"net/http"
 )
 
 // @Summary 获取多个标签
@@ -38,12 +41,14 @@ func GetTags(c *gin.Context) {
 
 //添加文章标签
 func AddTag(c *gin.Context) {
+	resp := responese.Gin{C: c}
 	name := c.Query("name")
 	createdBy := c.Query("created_by")
 	err := model.AddTag(name, createdBy)
 	if err != nil {
-		log.Println("插入数据失败")
+		resp.BuildResponse(http.StatusAccepted, e.ERROR_DATABASE_INSERT_FAIL, nil)
 	}
+	resp.BuildResponse(http.StatusOK, e.SUCCESS, nil)
 
 }
 

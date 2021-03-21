@@ -6,6 +6,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"go_api/controller/v1"
 	_ "go_api/docs"
+	"go_api/middleware/jwt"
 )
 
 func InitRouter() *gin.Engine {
@@ -21,7 +22,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.GET("/auth", v1.GetAuth)
-
+	r.Use(jwt.JWT())
 	apiV1 := r.Group("/api/v1")
 	{
 		//获取标签列表

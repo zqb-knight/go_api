@@ -1,4 +1,4 @@
-package toekn
+package token
 
 import (
 	jwt "github.com/dgrijalva/jwt-go"
@@ -18,12 +18,12 @@ type Claims struct {
 	@param: userName用户名，passWord密码
 	@retur: token, err
 */
-func GenerateToken(userName, passWord string) (string, error) {
+func GenerateToken(username, password string) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(3 * time.Hour)
 	claims := Claims{
-		userName,
-		passWord,
+		username,
+		password,
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
 			Issuer:    "zqb",
@@ -39,6 +39,15 @@ func GenerateToken(userName, passWord string) (string, error) {
 }
 
 func ParseToken(token string) (*Claims, error) {
-	log.Println("未开发")
-	return nil, nil
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(config.Viper.GetString("jwt.secret")), nil
+	})
+
+	if tokenClaims != nil {
+		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
+			return claims, nil
+		}
+	}
+
+	return nil, err
 }
