@@ -53,6 +53,9 @@ func AddTag(c *gin.Context) {
 }
 
 func EditTag(c *gin.Context) {
+	id := c.Param("id")
+	name := c.Query("name")
+	modifiedBy := c.Query("modified_by")
 
 }
 

@@ -34,3 +34,8 @@ func AddTag(name string, createdBy string) error {
 	err := db.Create(&tag).Error
 	return err
 }
+
+func UpdateTag(id int, data interface{}) bool {
+	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
+	return true
+}
