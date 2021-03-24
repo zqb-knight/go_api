@@ -15,14 +15,14 @@
 │  main.go
 │  README.md
 │
-├─common
+├─common	# 公共函数，基本操作
 │  │  jwt.go
 │  │
-│  ├─e
+│  ├─e		# 错误码包
 │  │      code.go
 │  │      msg.go
 │  │
-│  └─handlers
+│  └─handlers	# 组件相关操作
 │      ├─config
 │      │      initconfig.go
 │      │
@@ -32,24 +32,24 @@
 │      └─token
 │              jwt.go
 │
-├─conf
+├─conf	# 项目配置
 │      config.toml
 │
-├─controller
+├─controller	# api逻辑
 │  └─v1
 │          auth.go
 │          tags.go
 │
-├─docs
+├─docs		# api文档
 │      docs.go
 │      swagger.json
 │      swagger.yaml
 │
-├─middleware
+├─middleware	# 中间件
 │  └─jwt
 │          jwt.go
 │
-├─model
+├─model		# 数据库操作
 │  │  auth.go
 │  │  models.go
 │  │  tag.go
@@ -57,10 +57,10 @@
 │  └─redis_model
 │          initredis.go
 │
-├─router
+├─router	# 路由层
 │      router.go
 │
-└─unit_test
+└─unit_test		#单元测试
         models_test.go
 ```
 
