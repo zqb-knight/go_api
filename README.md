@@ -7,6 +7,65 @@
 - 使用redis, mysql进行数据存储
 - 使用viper进行配置加载
 
+## 项目结构
+
+```
+│  go.mod
+│  go.sum
+│  main.go
+│  README.md
+│
+├─common
+│  │  jwt.go
+│  │
+│  ├─e
+│  │      code.go
+│  │      msg.go
+│  │
+│  └─handlers
+│      ├─config
+│      │      initconfig.go
+│      │
+│      ├─responese
+│      │      build_response.go
+│      │
+│      └─token
+│              jwt.go
+│
+├─conf
+│      config.toml
+│
+├─controller
+│  └─v1
+│          auth.go
+│          tags.go
+│
+├─docs
+│      docs.go
+│      swagger.json
+│      swagger.yaml
+│
+├─middleware
+│  └─jwt
+│          jwt.go
+│
+├─model
+│  │  auth.go
+│  │  models.go
+│  │  tag.go
+│  │
+│  └─redis_model
+│          initredis.go
+│
+├─router
+│      router.go
+│
+└─unit_test
+        models_test.go
+```
+
+
+
 ## 前期准备
 - 配置go环境
 
