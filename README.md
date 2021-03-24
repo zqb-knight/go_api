@@ -81,10 +81,10 @@
   - viper: `go get github.com/spf13/viper`
 
 ## 进展
-- [ ] 使用viper读取配置文件实现配置管理
-- [ ] 编写全局错误码包
-- [ ] 使用gin, mysql实现标签的RESFul API
-- [ ] 实现JWT权限鉴定
+- [x] 使用viper读取配置文件实现配置管理
+- [x] 编写全局错误码包
+- [x] 使用gin, mysql实现标签的RESFul API
+- [x] 实现JWT权限鉴定
 - [ ] 为API增加redis缓存
 - [ ] 使用Swqgger生成API文档
 - [ ] 实现表单验证
