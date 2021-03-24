@@ -75,5 +75,12 @@ func EditTag(c *gin.Context) {
 }
 
 func DeleteTag(c *gin.Context) {
+	resp := responese.Gin{C: c}
+	id := com.StrTo(c.Param("id")).MustInt()
+	data := make(map[string]interface{})
+	data["id"] = id
+
+	model.DeleteTag(id)
+	resp.BuildResponse(http.StatusOK, e.SUCCESS, nil)
 
 }
