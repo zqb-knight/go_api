@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/unknwon/com"
 	"go_api/common/e"
 	"go_api/common/handlers/responese"
 	"go_api/model"
@@ -53,9 +54,23 @@ func AddTag(c *gin.Context) {
 }
 
 func EditTag(c *gin.Context) {
-	id := c.Param("id")
+	resp := responese.Gin{C: c}
+	id := com.StrTo(c.Param("id")).MustInt()
 	name := c.Query("name")
 	modifiedBy := c.Query("modified_by")
+	state := com.StrTo(c.Query("state")).MustInt()
+	code := e.SUCCESS
+	data := make(map[string]interface{})
+	data["modified_by"] = modifiedBy
+	if name != "" {
+		data["name"] = name
+	}
+	if state != -1 {
+		data["state"] = state
+	}
+	model.UpdateTag(id, data)
+
+	resp.BuildResponse(http.StatusOK, code, data)
 
 }
 
